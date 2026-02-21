@@ -1,0 +1,79 @@
+# =========================
+# ========== Unity =========
+# =========================
+
+# This .gitignore file should be placed at the root of your Unity project
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+
+# Asset meta data should be versioned
+!*.meta
+
+# Crash reports
+sysinfo.txt
+
+# =========================
+# ===== Visual Studio =====
+# =========================
+
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# =========================
+# ===== Rider / JetBrains ==
+# =========================
+
+.idea/
+*.sln.iml
+
+# =========================
+# ===== OS Generated =======
+# =========================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# ===== Addressables =======
+# =========================
+
+ServerData/
+
+# =========================
+# ===== Generated Files ====
+# =========================
+
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.exe
+*.ipa
+*.xcworkspace
+
+# =========================
+# ===== Test Coverage ======
+# =========================
+
+TestResults/
