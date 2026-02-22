@@ -15,7 +15,7 @@ public class BoxSpawn : MonoBehaviour
     {
         if (boxPrefab == null)
         {
-            Debug.LogError("Snail Prefab이 연결되지 않았습니다!");
+            Debug.LogError("Snail Prefab이 연결 안 됨");
             return;
         }
 

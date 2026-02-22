@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class ItemInventoryUI : MonoBehaviour
 {
-    public List<ItemSlot> slots; // 인스펙터에서 슬롯들을 드래그해서 넣으세요
+    public List<ItemSlot> slots;
 
     public void TryAddItemToSlot(ItemData data)
     {

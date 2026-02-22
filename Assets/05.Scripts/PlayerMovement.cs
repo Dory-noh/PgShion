@@ -16,6 +16,17 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private Vector2 lastTouchPos;
     private bool touchActive = false;
 
+    public Transform cameraPoint;
+
+    public float cameraRotateSpeed = 120f;
+    public float cameraResetSpeed = 5f;
+
+    private bool isCameraMode = false;
+
+    private float baseX = 25.4f;
+    private float baseY = -90f;   // 네 기본값
+    private float currentY;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -26,12 +37,30 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         // 시작할 때 현재 달팽이의 Y축 각도를 초기값으로 설정
         targetYRotation = transform.eulerAngles.y;
+        currentY = baseY;
     }
 
     void Update()
     {
         // 입력 방식(마우스/터치)에 상관없이 회전 로직을 실행
         HandleRotationInput();
+
+        if (isCameraMode)
+        {
+            float delta = Input.GetAxis("Mouse X") * cameraRotateSpeed * Time.deltaTime;
+            currentY += delta;
+
+            // 앞모습까지 허용 (뒤 기준 ±180)
+            currentY = Mathf.Clamp(currentY, baseY - 180f, baseY + 180f);
+
+            cameraPoint.localRotation = Quaternion.Euler(baseX, currentY, 0f);
+        }
+        else
+        {
+            // 자연스럽게 기본값(-90)으로 복귀
+            currentY = Mathf.LerpAngle(currentY, baseY, Time.deltaTime * cameraResetSpeed);
+            cameraPoint.localRotation = Quaternion.Euler(baseX, currentY, 0f);
+        }
     }
 
     void FixedUpdate()
@@ -55,7 +84,7 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private void HandleRotationInput()
     {
-        // --- 방법 1: 마우스 입력을 이용한 회전
+        //마우스 입력을 이용한 회전
         if (Input.GetMouseButtonDown(0))
         {
             lastTouchPos = Input.mousePosition;
@@ -93,4 +122,15 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     // 외부 호출용 함수
     public void StartMoving() => isMoving = true;
     public void StopMoving() => isMoving = false;
+
+    public void StartCameraMode()
+    {
+        isCameraMode = true;
+        isMoving = false;
+    }
+
+    public void StopCameraMode()
+    {
+        isCameraMode = false;
+    }
 }
