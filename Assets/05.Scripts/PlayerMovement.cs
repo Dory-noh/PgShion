@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Rigidbody))]
 public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    [Header("이동 및 회전 설정")]
     public float speed = 2f;
     public float rotationSpeed = 5f;
 
@@ -11,43 +12,42 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private Rigidbody rb;
     private float targetYRotation = 0f;
 
+    // 모바일 터치 대응 변수
     private Vector2 lastTouchPos;
     private bool touchActive = false;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true; // X, Z축 회전 방지 (옆으로 안 넘어지게)
+        rb.freezeRotation = true;
     }
 
     void Start()
     {
-        // 시작할 때 현재 달팽이의 각도를 초기값으로 설정
+        // 시작할 때 현재 달팽이의 Y축 각도를 초기값으로 설정
         targetYRotation = transform.eulerAngles.y;
     }
 
     void Update()
     {
+        // 입력 방식(마우스/터치)에 상관없이 회전 로직을 실행
         HandleRotationInput();
     }
 
     void FixedUpdate()
     {
-        // 1. 회전 적용
-        // 짐벌락 방지를 위해 Quaternion.Euler로 목표 각도를 만들고 rb에 적용합니다.
+        // 1. 부드러운 회전 적용
         Quaternion targetRot = Quaternion.Euler(0f, targetYRotation, 0f);
         rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
 
+        // 2. 이동 적용
         if (isMoving)
         {
-            // [범인 검거!] rb.rotation을 쓰면 회전이 끝날 때까지 방향이 안 변할 수 있습니다.
-            // 현재 내가 '목표로 하는 각도(targetRot)'의 오른쪽 방향을 미리 계산해서 이동해야 
-            // 회전하는 즉시 즉각적으로 방향이 바뀝니다.
+            // 현재 바라보는 방향(targetRot) 기준으로 오른쪽(Vector3.right)으로 이동
+            // (모델의 앞방향이 다를 경우 Vector3.forward 등으로 수정 가능)
             Vector3 direction = targetRot * Vector3.right;
+            direction.y = 0; // 중력 외의 Y축 이동 차단
 
-            direction.y = 0; // 높이 변화 차단
-
-            // normalized를 확실히 해줘야 사선 이동 시 속도가 빨라지지 않습니다.
             Vector3 moveStep = direction.normalized * speed * Time.fixedDeltaTime;
             rb.MovePosition(rb.position + moveStep);
         }
@@ -55,34 +55,42 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private void HandleRotationInput()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetMouseButton(0))
+        // --- 방법 1: 마우스 입력을 이용한 회전
+        if (Input.GetMouseButtonDown(0))
         {
-            float deltaX = Input.GetAxis("Mouse X");
-            if (Mathf.Abs(deltaX) > 0.01f)
-                targetYRotation += deltaX * 10f;
+            lastTouchPos = Input.mousePosition;
+            touchActive = true;
         }
-#endif
-#if UNITY_IOS || UNITY_ANDROID
+        else if (Input.GetMouseButton(0) && touchActive)
+        {
+            // 드래그한 거리만큼 각도 변경
+            float deltaX = Input.mousePosition.x - lastTouchPos.x;
+            lastTouchPos = Input.mousePosition;
+
+            // 0.2f는 감도
+            targetYRotation += deltaX * 0.2f;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            touchActive = false;
+        }
+
+      
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began) { lastTouchPos = touch.position; touchActive = true; }
-            else if (touch.phase == TouchPhase.Moved && touchActive)
+            if (touch.phase == TouchPhase.Moved)
             {
-                float deltaX = touch.position.x - lastTouchPos.x;
-                lastTouchPos = touch.position;
-                targetYRotation += deltaX * 0.2f;
+                // 터치 델타값을 이용해 각도 변경
+                targetYRotation += touch.deltaPosition.x * 0.2f;
             }
-            else if (touch.phase == TouchPhase.Ended) { touchActive = false; }
         }
-#endif
     }
 
-    // UI 버튼 연결용 (Event Trigger 사용)
     public void OnPointerDown(PointerEventData eventData) => isMoving = true;
     public void OnPointerUp(PointerEventData eventData) => isMoving = false;
 
+    // 외부 호출용 함수
     public void StartMoving() => isMoving = true;
     public void StopMoving() => isMoving = false;
 }
