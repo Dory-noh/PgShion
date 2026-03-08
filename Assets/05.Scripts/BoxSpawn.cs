@@ -2,35 +2,49 @@ using UnityEngine;
 
 public class BoxSpawn : MonoBehaviour
 {
-    public GameObject boxPrefab; // 생성할 box 프리팹
-    public int snailCount = 10;    // 생성 개수
-    public float range = 125f;      // -125 ~ 125 범위
+    public GameObject boxPrefab;
+    public int boxCount = 3;
+    public float range = 80f;
 
     void Start()
     {
         SpawnBoxes();
     }
 
+    float GetRandomExclude(float min, float max, float excludeMin, float excludeMax)
+    {
+        if (Random.value < 0.5f)
+        {
+            return Random.Range(min, excludeMin);
+        }
+        else
+        {
+            return Random.Range(excludeMax, max);
+        }
+    }
+
     void SpawnBoxes()
     {
         if (boxPrefab == null)
         {
-            Debug.LogError("Snail Prefab이 연결 안 됨");
+            Debug.LogError("boxPrefab이 연결 안 됨");
             return;
         }
 
-        for (int i = 0; i < snailCount; i++)
+        for (int i = 0; i < boxCount; i++)
         {
-            // 1. 랜덤 위치 계산 (X, Z축 -125 ~ 125)
-            float randomX = Random.Range(-range, range);
-            float randomZ = Random.Range(-range, range);
+            float randomX =
+                GetRandomExclude(-range, range, -20f, 20f);
 
-            Vector3 spawnPos = new Vector3(randomX, 0.1f, randomZ);
+            float randomZ =
+                GetRandomExclude(-range, range, -20f, 20f);
 
-            // 2. 랜덤 회전 (미리 아무 방향이나 보고 있게)
-            Quaternion randomRot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            Vector3 spawnPos =
+                new Vector3(randomX, 0.1f, randomZ);
 
-            // 3. 생성
+            Quaternion randomRot =
+                Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+
             Instantiate(boxPrefab, spawnPos, randomRot);
         }
     }

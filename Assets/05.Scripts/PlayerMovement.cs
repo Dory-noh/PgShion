@@ -17,6 +17,8 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private bool touchActive = false;
 
     public Transform cameraPoint;
+    public Animator animator;
+    public Transform startPoint;
 
     public float cameraRotateSpeed = 120f;
     public float cameraResetSpeed = 5f;
@@ -24,7 +26,7 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private bool isCameraMode = false;
 
     private float baseX = 25.4f;
-    private float baseY = -90f;   // 네 기본값
+    private float baseY = -90f;
     private float currentY;
 
     void Awake()
@@ -38,6 +40,12 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         // 시작할 때 현재 달팽이의 Y축 각도를 초기값으로 설정
         targetYRotation = transform.eulerAngles.y;
         currentY = baseY;
+        GoStartPoint();
+    }
+
+    public void GoStartPoint()
+    {
+        gameObject.transform.position = startPoint.position;
     }
 
     void Update()
@@ -65,6 +73,9 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     void FixedUpdate()
     {
+        //이동시에만 꿈틀 애니메이션 적용
+        animator.SetBool("IsMove",isMoving);
+
         // 1. 부드러운 회전 적용
         Quaternion targetRot = Quaternion.Euler(0f, targetYRotation, 0f);
         rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
@@ -73,8 +84,7 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (isMoving)
         {
             // 현재 바라보는 방향(targetRot) 기준으로 오른쪽(Vector3.right)으로 이동
-            // (모델의 앞방향이 다를 경우 Vector3.forward 등으로 수정 가능)
-            Vector3 direction = targetRot * Vector3.right;
+            Vector3 direction = targetRot * Vector3.left;
             direction.y = 0; // 중력 외의 Y축 이동 차단
 
             Vector3 moveStep = direction.normalized * speed * Time.fixedDeltaTime;
