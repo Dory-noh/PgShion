@@ -21,8 +21,21 @@ public class ItemInventoryUI : MonoBehaviour
             if (!slot.HasItem())
             {
                 slot.SetItem(data);
+
+                UpdateEquip(); 
                 return;
             }
+        }
+    }
+
+    public void UpdateEquip()
+    {
+        if (slots.Count > 0)
+        {
+            var firstSlot = slots[0];
+            var player = FindFirstObjectByType<SnailItemHandler>();
+
+            player.EquipFromSlot(firstSlot.GetItem());
         }
     }
 }

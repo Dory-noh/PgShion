@@ -52,7 +52,7 @@ public class SnailItemHandler : MonoBehaviour
 
         ItemData data = box.GetItemData();
 
-        EquipItem(data);
+        //EquipItem(data);
         inventoryUI.TryAddItemToSlot(data);
 
         Destroy(selectedObj);

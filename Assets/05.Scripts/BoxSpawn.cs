@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class BoxSpawn : MonoBehaviour
@@ -5,10 +6,12 @@ public class BoxSpawn : MonoBehaviour
     public GameObject boxPrefab;
     public int boxCount = 3;
     public float range = 80f;
+    public MiniMap miniMap;
 
     void Start()
     {
         SpawnBoxes();
+        miniMap.InitBoxes();
     }
 
     float GetRandomExclude(float min, float max, float excludeMin, float excludeMax)

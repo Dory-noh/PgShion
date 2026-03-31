@@ -84,7 +84,7 @@ public class SnailMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             }
         }
 
-        currentY = Mathf.Clamp(currentY, baseY - 180f, baseY + 180f);
+        //currentY = Mathf.Clamp(currentY, baseY - 180f, baseY + 180f);
         cameraPoint.localRotation = Quaternion.Euler(baseX, currentY, 0f);
     }
 

@@ -103,7 +103,7 @@ public class ItemSlot : MonoBehaviour,
         a.SetItem(b.storedItem);
         b.SetItem(temp);
 
-        UpdateEquip();
+        FindFirstObjectByType<ItemInventoryUI>().UpdateEquip();
     }
 
     public void SetItem(ItemData data)
@@ -118,20 +118,6 @@ public class ItemSlot : MonoBehaviour,
         else
         {
             iconImage.enabled = false;
-        }
-    }
-
-    void UpdateEquip()
-    {
-        ItemSlot[] allSlots = FindObjectsByType<ItemSlot>(FindObjectsSortMode.None);
-
-        foreach (var slot in allSlots)
-        {
-            if (slot.slotIndex == 0)
-            {
-                player.EquipFromSlot(slot.GetItem());
-                break;
-            }
         }
     }
 
