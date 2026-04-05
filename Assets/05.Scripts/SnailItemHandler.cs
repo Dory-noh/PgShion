@@ -10,9 +10,10 @@ public class SnailItemHandler : MonoBehaviour
 
     public GameObject shakeBtn;
     public GameObject getItemBtn;
-    public GameObject chatDoorMan;
 
     private GameObject selectedObj;
+    public GameObject[] chatDoorMans;
+    private int index = 0;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,7 +25,13 @@ public class SnailItemHandler : MonoBehaviour
 
         if (other.CompareTag("door"))
         {
-            chatDoorMan.SetActive(true);
+            foreach (var obj in chatDoorMans)
+                obj.SetActive(false);
+
+            chatDoorMans[index].SetActive(true);
+
+            // ¥Ÿ¿Ω ¿Œµ¶Ω∫
+            index = (index + 1) % chatDoorMans.Length;
         }
     }
 
@@ -39,7 +46,8 @@ public class SnailItemHandler : MonoBehaviour
 
         if (other.CompareTag("door"))
         {
-            chatDoorMan.SetActive(false);
+            foreach (var obj in chatDoorMans)
+                obj.SetActive(false);
         }
     }
 
