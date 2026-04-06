@@ -83,6 +83,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a21f6c7750e8fb0488ffe6feaf7ed5ec, type: 2}
   - {fileID: 11400000, guid: b49d7c1814291e74082e9a0890e10355, type: 2}
   - {fileID: 11400000, guid: 6073118cc7b78d3438053e5fc95d1c81, type: 2}
+  - {fileID: 11400000, guid: 8bf3be06f041f304b840aa0c64f5d492, type: 2}
+  - {fileID: 11400000, guid: 53743f96993879a4ca20e2dc9fbdef6c, type: 2}
   currentDisplayItem: {fileID: 0}
   selectedItemIndex: 0
   ItemPos: {fileID: 7057814396778424976}

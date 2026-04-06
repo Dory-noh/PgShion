@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff726247b664e443b51d55c0a89cbff, type: 3}
+  m_Name: cap4
+  m_EditorClassIdentifier: 
+  itemID: cap4
+  itemName: headSet
+  itemIcon: {fileID: 21300000, guid: 08d3b849b1da29e4ab0ce387b0e6109c, type: 3}
+  itemPrefab: {fileID: 5173021650214498142, guid: 445f6308de4a1cf419ebe87346eda8e2, type: 3}

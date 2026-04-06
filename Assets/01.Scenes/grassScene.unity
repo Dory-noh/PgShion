@@ -2352,6 +2352,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 104146214}
+        m_TargetAssemblyTypeName: PlayTimeText, Assembly-CSharp
+        m_MethodName: gameStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &422559064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3803,8 +3815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxPrefab: {fileID: 8456856693416512748, guid: 2d9a94fe970b22745b84bb383328c25a, type: 3}
-  boxCount: 3
-  range: 30
+  boxCount: 5
+  range: 50
   miniMap: {fileID: 104146216}
 --- !u!4 &687564191
 Transform:
@@ -12080,6 +12092,10 @@ PrefabInstance:
       propertyPath: startPoint
       value: 
       objectReference: {fileID: 1733026571}
+    - target: {fileID: 8175971754165236206, guid: 9807fc5d1d84e2b4bac40e57bf33610e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.318
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5898396839504844841, guid: 9807fc5d1d84e2b4bac40e57bf33610e, type: 3}

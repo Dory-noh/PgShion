@@ -9,7 +9,7 @@ public class ScanSnail : MonoBehaviour
         if (Input.GetMouseButton(0)) 
         {
             float mouseX = Input.GetAxis("Mouse X");
-            transform.Rotate(0f, mouseX * rotateSpeed * Time.deltaTime, 0f);
+            transform.Rotate(0f, -mouseX * rotateSpeed * Time.deltaTime, 0f);
         }
     }
 }
