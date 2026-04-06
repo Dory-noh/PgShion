@@ -23,7 +23,6 @@ public class ItemSlot : MonoBehaviour,
         player = FindFirstObjectByType<SnailItemHandler>();
         ClearSlot();
     }
-
     void Update()
     {
         if (isHolding)
@@ -32,18 +31,22 @@ public class ItemSlot : MonoBehaviour,
 
             if (pressTime >= 0.5f && !isDragging && storedItem != null)
             {
-                StartDrag();
+                // Input.mousePosition을 전달합니다.
+                StartDrag(Input.mousePosition);
             }
         }
     }
 
-    void StartDrag()
+    void StartDrag(Vector2 mousePos)
     {
         isDragging = true;
         originSlot = this;
 
         dragIcon = new GameObject("DragIcon").AddComponent<Image>();
         dragIcon.transform.SetParent(transform.root);
+
+        dragIcon.transform.position = mousePos;
+
         dragIcon.raycastTarget = false;
         dragIcon.sprite = iconImage.sprite;
         dragIcon.rectTransform.sizeDelta = iconImage.rectTransform.sizeDelta;
