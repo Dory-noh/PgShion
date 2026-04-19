@@ -3815,8 +3815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxPrefab: {fileID: 8456856693416512748, guid: 2d9a94fe970b22745b84bb383328c25a, type: 3}
-  boxCount: 5
-  range: 50
+  boxCount: 10
+  range: 75
   miniMap: {fileID: 104146216}
 --- !u!4 &687564191
 Transform:

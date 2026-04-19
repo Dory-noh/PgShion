@@ -5,7 +5,7 @@ public class SnailItemHandler : MonoBehaviour
     public ItemInventoryUI inventoryUI;
     public Transform itemHolder;
 
-    private GameObject currentActiveItem;
+    private GameObject currentActiveItem; 
     private ItemData currentItem;
 
     public GameObject shakeBtn;
@@ -50,6 +50,7 @@ public class SnailItemHandler : MonoBehaviour
                 obj.SetActive(false);
         }
     }
+
 
     public void GetItem()
     {

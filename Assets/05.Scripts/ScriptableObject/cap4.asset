@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: cap4
   m_EditorClassIdentifier: 
   itemID: cap4
-  itemName: headSet
+  itemName: "\uD5E4\uB4DC\uC14B"
   itemIcon: {fileID: 21300000, guid: 08d3b849b1da29e4ab0ce387b0e6109c, type: 3}
-  itemPrefab: {fileID: 5173021650214498142, guid: 445f6308de4a1cf419ebe87346eda8e2, type: 3}
+  itemPrefab: {fileID: 8300676019372964734, guid: 449b59ba165fd504fbe32d67db8130e7, type: 3}
